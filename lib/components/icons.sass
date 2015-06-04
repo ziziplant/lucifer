@@ -1,0 +1,181 @@
+/////////////// ICONS ///////////////
+
+// blizsie specifikovat funkciu - naco je dobra
+=loadIcons()
+	+loadFont("icons", "fonts/icons/icon")
+
+	[class^="icon-"], [class*=" icon-"]
+		font-family: icons
+		font-style: normal
+
+	@for $i from 1 through 233
+		$num: decToHex($i)
+		$str: char("e0#{$num}")
+
+		.icon-e0#{$num}:before, .icon-e0#{$num}:after
+			content: $str
+		
+		.icon-e0#{$num}:before
+			position: absolute
+			color: transparent
+
+=draw-icon($ordered, $orientation, $centered, $left: 0, $container-border-radius: false, $icon-radius: " > .icon", $icon-selector: "& > .icon", $type: list, $is_separator: false)
+	@if $icon-inherited == false
+		$icon-selector: "&"
+		$icon-radius: ":after"
+		
+	$this-icon-border-radius: $icon-border-radius or 0
+	
+	#{$icon-selector}:after, #{$icon-selector}:before
+		position: absolute
+		color: $icon-color
+		font-family: $icon-font
+		font-size: $icon-size
+		margin: $icon-margin
+		padding: $icon-padding
+		box-shadow: $icon-shadow
+		+border($icon-border)
+		text-align: center
+		
+		@if $icon-position == left
+			left: $left
+			
+			@if $centered
+				top: 50%
+				+transform(translateY(-50%))
+			@else
+				top: 0
+		@if $icon-position == top
+			top: 0
+			
+			@if $icon-stretched
+				width: 100%
+			
+			@if $centered
+				left: 50%
+				+transform(translateX(-50%))
+			@else
+				left: 0
+		@if $icon-position == right
+			right: 0
+			left: auto
+			
+			@if $centered
+				top: 50%
+				+transform(translateY(-50%))
+			@else
+				top: 0
+		@if $icon-position == bottom
+			top: auto
+			bottom: 0
+			
+			@if $icon-stretched
+				width: 100%
+				
+			@if $centered
+				left: 50%
+				+transform(translateX(-50%))
+			@else
+				left: 0
+			
+	#{$icon-selector}:after
+		@if $icon-inherited == false
+			@if $ordered == false
+				content: $icon-sign
+
+			@if $ordered == true
+				content: counter(lucifer-counter, $icon-sign)
+	
+	@if $icon-position == left or $icon-position == right
+		#{$icon-selector}:before
+			@if $icon-stretched
+				height: 100%
+			@else
+				height: $icon-size + 2 * $icon-padding + $horizontal-border-width + $vertical-border-width
+				width: $icon-size + 2 * $icon-padding + $horizontal-border-width + $vertical-border-width
+		
+			color: transparent
+			background: $icon-bg
+			border-radius: $this-icon-border-radius
+			
+			@if $icon-inherited == false
+				@if $ordered == false
+					content: $icon-sign
+
+				@if $ordered == true
+					content: counter(lucifer-counter, $icon-sign)
+		
+		#{$icon-selector}:after
+			border-color: transparent
+			
+			@if $icon-inherited
+				background: $icon-bg
+				border-radius: $this-icon-border-radius
+			
+			@if $icon-stretched == false
+				width: $icon-size + 2 * $icon-padding + $horizontal-border-width + $vertical-border-width
+				padding: $icon-padding 0
+	@else
+		#{$icon-selector}:after
+			background: $icon-bg
+			border-radius: $this-icon-border-radius
+	
+	@if $container-border-radius and $is_separator == false
+		$this-container-border-radius: $container-border-radius
+		
+		@if $container-border-radius < $this-icon-border-radius
+			$this-container-border-radius: $this-icon-border-radius
+		
+		@if $type == list
+			@if $orientation == horizontaly
+				@if $icon-position == top
+					&:first-child#{$icon-radius}, &:first-child:before
+						border-radius: $this-container-border-radius $this-icon-border-radius $this-icon-border-radius $this-icon-border-radius
+					
+					&:last-child#{$icon-radius}, &:last-child:before
+						border-radius: $this-icon-border-radius $this-container-border-radius $this-icon-border-radius $this-icon-border-radius
+				@if $icon-position == right
+					&:last-child#{$icon-radius}, &:last-child:before
+						border-radius: $this-icon-border-radius $this-container-border-radius $this-container-border-radius $this-icon-border-radius
+				@if $icon-position == bottom
+					&:first-child#{$icon-radius}, &:first-child:before
+						border-radius: $this-icon-border-radius $this-icon-border-radius $this-icon-border-radius $this-container-border-radius
+					
+					&:last-child#{$icon-radius}, &:last-child:before
+						border-radius: $this-icon-border-radius $this-icon-border-radius $this-container-border-radius $this-icon-border-radius
+				@if $icon-position == left
+					&:first-child#{$icon-radius}, &:first-child:before
+						border-radius: $this-container-border-radius $this-icon-border-radius $this-icon-border-radius $this-container-border-radius
+			@else
+				@if $icon-position == top
+					&:first-child#{$icon-radius}, &:first-child:before
+						border-radius: $this-container-border-radius $this-container-border-radius $this-icon-border-radius $this-icon-border-radius
+				@if $icon-position == right
+					&:first-child#{$icon-radius}, &:first-child:before
+						border-radius: $this-icon-border-radius $this-container-border-radius $this-icon-border-radius $this-icon-border-radius
+						
+					&:last-child#{$icon-radius}, &:last-child:before
+						border-radius: $this-icon-border-radius $this-icon-border-radius $this-container-border-radius $this-icon-border-radius
+				@if $icon-position == bottom
+					&:last-child#{$icon-radius}, &:last-child:before
+						border-radius: $this-icon-border-radius $this-icon-border-radius $this-container-border-radius $this-container-border-radius
+				@if $icon-position == left
+					&:first-child#{$icon-radius}, &:first-child:before
+						border-radius: $this-container-border-radius $this-icon-border-radius $this-icon-border-radius $this-icon-border-radius
+						
+					&:last-child#{$icon-radius}, &:last-child:before
+						border-radius: $this-icon-border-radius $this-icon-border-radius $this-icon-border-radius $this-container-border-radius
+		
+		@if $type == item
+			@if $icon-position == top
+				#{$icon-radius}:before, #{$icon-radius}:after
+					border-radius: $this-container-border-radius $this-container-border-radius $this-icon-border-radius $this-icon-border-radius
+			@if $icon-position == right
+				#{$icon-radius}:before, #{$icon-radius}:after
+					border-radius: $this-icon-border-radius $this-container-border-radius $this-container-border-radius $this-icon-border-radius
+			@if $icon-position == bottom
+				#{$icon-radius}:before, #{$icon-radius}:after
+					border-radius: $this-icon-border-radius $this-icon-border-radius $this-container-border-radius $this-container-border-radius
+			@if $icon-position == left
+				#{$icon-radius}:before, #{$icon-radius}:after
+					border-radius: $this-container-border-radius $this-icon-border-radius $this-icon-border-radius $this-container-border-radius

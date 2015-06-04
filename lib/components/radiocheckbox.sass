@@ -1,0 +1,91 @@
+/////////////// COMPONENTS ///////////////
+////////////// radio buttons /////////////
+
+=radiocheckbox($type: radio, $wrap: (), $item: (), $activeColor: null, $bg: white, $border: (all:(width: 1px, style: solid, color: #b0b0b0)))
+	$default-wrap: ()
+	$default-item: (padding: 0)
+	
+	@if $type == radio
+		$default-wrap: (class: ".radiobuttons")
+	@if $type == checkbox
+		$default-wrap: (class: ".checkboxes")
+		
+	+set-wrap($wrap, $default-wrap)
+	+set-item($item, $default-item)
+	
+	@if $activeColor == null and $type == radio
+		$activeColor: #a7e53a
+	@if $activeColor == null and $type == checkbox
+		$activeColor: #4a4a4a
+		
+	#{$wrap-class}
+		width: $wrap-width
+		height: $wrap-height
+		background: $wrap-bg
+		margin: $wrap-margin
+		padding: $wrap-padding
+		position: relative
+		border-radius: $wrap-border-radius
+		+border($wrap-border)
+		
+		label
+			display: inline-block
+			background: $item-bg
+			border-radius: $item-border-radius
+			position: relative
+			font-family: $item-font
+			font-size: $item-size
+			color: $item-color
+			padding: $item-padding
+			padding-left: $item-padding + 1.5em
+			margin: $item-margin
+			width: $item-width
+			+border($item-border)
+			box-shadow: $item-shadow
+			
+			&:before, &:after
+				content: ''
+				display: block
+				position: absolute
+				top: 50%
+				+transform(translateY(-50%))
+				
+				@if $type == radio
+					border-radius: 50%
+				
+			&:before
+				width: 1em
+				height: 1em
+				left: 0.25em
+				background: $bg or white
+				+border($border)
+			
+			&:after
+				@if $type == radio
+					background: transparent
+					left: 0.5em
+					width: 0.5em
+					height: 0.5em
+				@if $type == checkbox
+					color: transparent
+					content: "\e07e"
+					font-family: "icons" 
+					font-size: .5em
+					left: 1em
+				
+			&:hover:after
+				@if $type == radio
+					background: rgba($activeColor, 0.5)
+				@if $type == checkbox
+					color: rgba($activeColor, 0.5)
+
+		@if $type == radio
+			input[type="radio"]:checked + label:after
+				background: $activeColor
+		
+		@if $type == checkbox
+			input[type="checkbox"]:checked + label:after
+				color: $activeColor
+			
+		input[type="radio"], input[type="checkbox"]
+			display: none
