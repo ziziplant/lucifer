@@ -1,0 +1,37 @@
+/////////////// TYPOGRAHPY ///////////////
+
+// load selected font
+// name is the name of font
+// path is the path to the font without the .type
+// font weight is a font-weight property, it is not neccessary and the default is 400
+// font style is a font-style property, it is not neccessary and the default is normal
+=loadFont($name, $path, $font-weight: 400, $font-style: normal)
+	@font-face
+		font-family: '#{$name}'
+		src: url(('#{$path}.eot'))
+		src: url(('#{$path}.eot?#iefix')) format('embedded-opentype'), url(('#{$path}.woff')) format('woff'), url(('#{$path}.ttf')) format('truetype'), url(('#{$path}.svg##{$name}')) format('svg')
+		font-weight: $font-weight
+		font-style: $font-style
+
+// load fonts from the list
+=loadFonts($fontsList)
+	@each $typo in $fontsList
+		$name: nth($typo, 1)
+		$path: nth($typo, 2)
+		$font-weight: 400
+		$font-style: normal
+		
+		@if length($typo) >= 3
+			$font-weight: nth($typo, 3)
+		  
+		@if length($typo) >= 4
+			$font-style: nth($typo, 4)
+    
+		+loadFont($name, $path, $font-weight, $font-style)
+
+// set the sizes of headings and their margins as well
+=setHeadingsSizes($initial-size)
+	@for $i from 1 through 6
+		h#{$i}
+			font-size: $initial-size / sqrt($i)
+			margin: $initial-size / (2.5 * sqrt($i)) 0
