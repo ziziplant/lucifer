@@ -15,39 +15,39 @@ LOAD PARTS
 // settings.sass
  
 /* including resources */
-<br>@import resources/normalize.css
+@import resources/normalize.css
  
 *, *:before, *:after
-<br>	box-sizing: border-box
+	box-sizing: border-box
  
 // including libs
-<br>@import lib/functions.sass
-<br>@import lib/unification.sass
-<br>@import lib/mixins.sass
-<br>@import lib/grid.sass
-<br>@import lib/typography.sass
+@import lib/functions.sass
+@import lib/unification.sass
+@import lib/mixins.sass
+@import lib/grid.sass
+@import lib/typography.sass
  
 // including components
-<br>@import lib/components/gradient.sass
-<br>@import lib/components/icons.sass
-<br>@import lib/components/arrow.sass
-<br>@import lib/components/list.sass
-<br>@import lib/components/table.sass
-<br>@import lib/components/tabs.sass
-<br>@import lib/components/breadcrumbs.sass
-<br>@import lib/components/tooltip.sass
-<br>@import lib/components/rating.sass
-<br>@import lib/components/switcher.sass
-<br>@import lib/components/radiocheckbox.sass
+@import lib/components/gradient.sass
+@import lib/components/icons.sass
+@import lib/components/arrow.sass
+@import lib/components/list.sass
+@import lib/components/table.sass
+@import lib/components/tabs.sass
+@import lib/components/breadcrumbs.sass
+@import lib/components/tooltip.sass
+@import lib/components/rating.sass
+@import lib/components/switcher.sass
+@import lib/components/radiocheckbox.sass
  
 // setting defaults
-<br>$fontsList: (("abrilfatface", "fonts/abrlfatface-regular-webfont"), ("anton", "fonts/anton-webfont"))
+$fontsList: (("abrilfatface", "fonts/abrlfatface-regular-webfont"), ("anton", "fonts/anton-webfont"))
  
 /* load fonts */
-<br>+loadFonts($fontsList)
++loadFonts($fontsList)
  
-<br>// custom code
-<br>...
+// custom code
+...
 ```
 
 As you can see, you could import whatever component you want and do not include what you dont want to and what you will not use as well. We highly recommend you to include these files:
