@@ -1,0 +1,170 @@
+/////////////// FUNCTIONS ///////////////
+
+// square root function
+// number - the number of that could the square root be
+// returns number
+@function sqrt($number) 
+	$result: 1
+
+	@for $i from 1 through 10 
+		$result: $result - ($result * $result - abs($number)) / (2 * $result)
+
+	@return $result
+
+// function that converts a number lower than 256 into the hexadecimal format
+// number - the number to convert
+@function decToHex($number)
+	$hexVals: "a" "b" "c" "d" "e" "f"
+	$base: 16
+	$quotient: $number
+	$result: ""
+
+	@if $number == 0 
+		$result: "00"
+  
+	@while $quotient != 0 
+		$mod: $quotient % $base
+		$quotient: floor($quotient / $base)
+
+		@if $mod > 9 
+			$mod: nth($hexVals, $mod - 9)
+    
+		@if $number < $base 
+			$result: "0" + $mod
+		@else 
+			$result: $mod + $result
+  
+	@return $result
+
+// function that return the form "\character-code"
+@function char($character-code)
+	@if function-exists("selector-append")
+		@return unquote('"\\#{$character-code}"')
+	
+	@return str-slice("x", 1, 1) + $character-code
+  
+// auxiliary function to get the 0, if the first number is higher or equal to the second one
+// or returns an half of the difference of these two numbers
+@function compareNumbers($number1, $number2)
+	@if $number1 >= $number2
+		@return false
+	@else
+		@return abs($number1 - $number2) / 2
+
+// get the content of the list
+// returns string with separated valueos, or the content of the list in hierarchy of the list
+@function stringfy($list, $depth: 0, $hierarchical: false)
+	$result: ""
+	$separator: " "
+	
+	@if $hierarchical
+		$result: "[ "
+
+	@for $i from 1 through length($list)
+		@if length(nth($list, $i)) > 1
+			$result: $result + stringfy(nth($list, $i), $depth + 1, $hierarchical)
+		@else 
+			$result: $result + nth($list, $i)
+    
+		@if $hierarchical
+			@if index($list, nth($list, $i)) != length($list) 
+				$result: $result + ", "
+			$result: $result + " ]"
+		
+		@else
+			@if $i != length($list) and $depth == 0
+				$separator: ","
+			@else
+				$separator: " "
+
+			$result: $result + $separator
+			$depth: 0
+ 
+	@return quote($result)
+
+// calculate opacity
+// aov - actual opacity value between 0 and 1 (f.e. 0.7)
+// pov - previous opacity value between 0 and 1 (f.e. 0.7)
+// acp - actual color position between 0% and 100% (f.e. 30%)
+// pop - previous opacity position between 0% and 100% (f.e. 30%)
+// aop - actual opacity position between 0% and 100% (f.e. 30%)
+// returns number in %
+@function calcOpacity($aov, $pov, $acp, $pop, $aop)
+	$aov: percentage($aov)
+	$pov: percentage($pov)
+
+	@return (($aov - $pov) * (($acp - $pop) / ($aop - $pop)) + $pov) / 100
+
+// calculate color
+// pcv - previous color value (f.e. #511C96)
+// acv - actual color value (f.e. #511C96)
+// aop - actual opacity position between 0% and 100% (f.e. 30%)
+// pcp - previous color position between 0% and 100% (f.e. 30%)
+// acp - actual color position between 0% and 100% (f.e. 30%)
+// returns color in rgba fromat
+@function calcColor($pcv, $acv, $aop, $pcp, $acp)
+	@return mix($acv, $pcv, ($aop - $pcp) / ($acp - $pcp) * 100)
+
+// calculate the colors and their opacity depending on the list of colors and theirs positions and opacitys and their positions
+// colors - the list of colors and their positions
+// opacitys - the list of opacitys and their positions
+// returns list of rgba colors and their positions
+@function calcOpaqueColors($colors, $opacitys) 
+	$result_list: ()
+	$cop: 0
+	$cck: 1
+  
+	@for $i from 1 through length($opacitys)
+		$break: false
+    
+		@for $j from $cck through length($colors)
+			@if $break == false
+				$aov: nth(nth($opacitys, $i), 1)
+				$aop: nth(nth($opacitys, $i), 2)
+				$acv: nth(nth($colors, $j), 1)
+				$acp: nth(nth($colors, $j), 2)
+        
+				@if $aop > $acp
+					@if $i == 1 and $j == 1
+						$result_list: append($result_list, (rgba($acv, $aov), $acp))
+            
+					@else
+						$pov: $aov
+						$pop: $aop
+            
+						@if $i > 1
+							$pov: nth(nth($opacitys, $i - 1), 1)
+							$pop: nth(nth($opacitys, $i - 1), 2)
+            
+						$calc_o: calcOpacity($aov, $pov, $acp, $pop, $aop)
+						$result_list: append($result_list, (rgba($acv, $calc_o), $acp))
+            
+						@if $i == length($opacitys) and $j == length($colors)
+							$result_list: append($result_list, (rgba($acv, $aov), $aop))
+            
+				@if $aop == $acp
+					$result_list: append($result_list, (rgba($acv, $aov), $acp))
+					$cck: $j + 1
+					$break: true
+          
+				@if $aop < $acp
+					@if $i == 1 and $j == 1
+						$result_list: append($result_list, (rgba($acv, $aov), $aop))
+						$cck: $j + 1
+						$break: true
+          
+					@else
+						$pcv: nth(nth($colors, $j - 1), 1)
+						$pcp: nth(nth($colors, $j - 1), 2)
+            
+						$calc_c: calcColor($pcv, $acv, $aop, $pcp, $acp)
+            
+						$result_list: append($result_list, (rgba($calc_c, $aov), $aop))
+            
+						@if $i == length($opacitys) and $j == length($colors)
+							$result_list: append($result_list, (rgba($acv, $aov), $acp))
+            
+						$cck: $j
+						$break: true
+
+	@return $result_list

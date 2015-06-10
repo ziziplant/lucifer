@@ -1,0 +1,168 @@
+/////////////// MIXINS ///////////////
+
+=clearfix()
+	&:before, &:after 
+		content: ""
+		display: table
+  
+	&:after 
+		clear: both
+
+=screen($window, $width-property: max)
+	$width: $window
+	
+	@if $window == fullHD
+		$width: 1919px
+	@if $window == bigger
+		$width: 1599px
+	@if $window == normal
+		$width: 1279px
+	@if $window == smaller
+		$width: 1023px
+	@if $window == tablet
+		$width: 767px
+	@if $window == bigger-phone
+		$width: 479px
+	@if $window == smaller-phone
+		$width: 319px
+	
+	@media only screen and (#{$width-property}-width: $width)
+		@content
+		
+=border($border: ())
+	$border-width: null
+	$border-style: null
+	$border-color: null
+	
+	$border-top-width: null
+	$border-top-style: null
+	$border-top-color: null
+
+	$border-right-width: null
+	$border-right-style: null
+	$border-right-color: null
+
+	$border-bottom-width: null
+	$border-bottom-style: null
+	$border-bottom-color: null
+
+	$border-left-width: null
+	$border-left-style: null
+	$border-left-color: null
+	
+	$horizontal-border-width: 0 !global
+	$vertical-border-width: 0 !global
+	
+	@if $border != null
+		$all: map-get($border, all)
+		$top: map-get($border, top)
+		$right: map-get($border, right)
+		$bottom: map-get($border, bottom)
+		$left: map-get($border, left)
+	
+		@if $all
+			$border-width: map-get($all, width)
+			$border-style: map-get($all, style)
+			$border-color: map-get($all, color)
+			
+		@if $top
+			$border-top-width: map-get($top, width)
+			$border-top-style: map-get($top, style)
+			$border-top-color: map-get($top, color)
+		
+		@if $right
+			$border-right-width: map-get($right, width)
+			$border-right-style: map-get($right, style)
+			$border-right-color: map-get($right, color)
+		
+		@if $bottom
+			$border-bottom-width: map-get($bottom, width)
+			$border-bottom-style: map-get($bottom, style)
+			$border-bottom-color: map-get($bottom, color)
+		
+		@if $left
+			$border-left-width: map-get($left, width)
+			$border-left-style: map-get($left, style)
+			$border-left-color: map-get($left, color)
+		
+		@if $border-left-width == null and $border-right-width == null and $border-width != null
+			$horizontal-border-width: 2 * $border-width !global
+		@if $border-left-width != null and $border-right-width == null and $border-width != null
+			$horizontal-border-width: $border-width + $border-left-width !global
+		@if $border-left-width == null and $border-right-width != null and $border-width != null
+			$horizontal-border-width: $border-width + $border-right-width !global
+		@if $border-left-width and $border-right-width
+			$horizontal-border-width: $border-left-width + $border-right-width !global
+			
+		@if $border-top-width == null and $border-bottom-width == null and $border-width != null
+			$vertical-border-width: 2 * $border-width !global
+		@if $border-top-width != null and $border-bottom-width == null and $border-width != null
+			$vertical-border-width: $border-width + $border-top-width !global
+		@if $border-top-width == null and $border-bottom-width != null and $border-width != null
+			$vertical-border-width: $border-width + $border-bottom-width !global
+		@if $border-top-width and $border-bottom-width
+			$vertical-border-width: $border-top-width + $border-bottom-width !global
+	
+		border-width: $border-width
+		border-style: $border-style
+		border-color: $border-color
+		
+		border-top-width: $border-top-width
+		border-top-style: $border-top-style
+		border-top-color: $border-top-color
+		
+		border-right-width: $border-right-width
+		border-right-style: $border-right-style
+		border-right-color: $border-right-color
+		
+		border-bottom-width: $border-bottom-width
+		border-bottom-style: $border-bottom-style
+		border-bottom-color: $border-bottom-color
+		
+		border-left-width: $border-left-width
+		border-left-style: $border-left-style
+		border-left-color: $border-left-color
+
+=set-icon($icon: (), $default: ())
+	$icon-size: map-get($icon, size) or map-get($default, size) or 1em !global
+
+	$icon-bg: map-get($icon, bg) or map-get($default, bg) !global
+	$icon-border: map-get($icon, border) or map-get($default, border) !global
+	$icon-border-radius: map-get($icon, border-radius) or map-get($default, border-radius) !global
+	$icon-color: map-get($icon, color) or map-get($default, color) !global
+	$icon-centered: map-get($icon, centered) or map-get($default, centered) or false !global
+	$icon-font: map-get($icon, font) or map-get($default, font) or "icons" !global
+	$icon-inherited: map-get($icon, inherited) or map-get($default, inherited) or false !global
+	$icon-margin: map-get($icon, margin) or map-get($default, margin) !global
+	$icon-padding: map-get($icon, padding) or map-get($default, padding) or .5em !global
+	$icon-position: map-get($icon, position) or map-get($default, position) !global
+	$icon-shadow: map-get($icon, shadow) or map-get($default, shadow) !global
+	$icon-sign: map-get($icon, sign) or map-get($default, sign) !global
+	$icon-stretched: map-get($icon, stretched) or map-get($default, stretched) or false !global
+
+=set-item($item: (), $default: ())
+	$item-bg: map-get($item, bg) or map-get($default, bg) !global
+	$item-border: map-get($item, border) or map-get($default, border) !global
+	$item-border-radius: map-get($item, border-radius) or map-get($default, border-radius) !global
+	$item-color: map-get($item, color) or map-get($default, color) !global
+	$item-font: map-get($item, font) or map-get($default, font) !global
+	$item-margin: map-get($item, margin) or map-get($default, margin) !global
+	$item-padding: map-get($item, padding) or map-get($default, padding) !global
+	$item-position: map-get($item, position) or map-get($default, position) !global
+	$item-shadow: map-get($item, shadow) or map-get($default, shadow) !global
+	$item-size: map-get($item, size) or map-get($default, size) !global
+	$item-width: map-get($item, width) or map-get($default, width) !global
+
+=set-wrap($wrap: (), $default: ())
+	$wrap-bg: map-get($wrap, bg) or map-get($default, bg) !global
+	$wrap-border: map-get($wrap, border) or map-get($default, border) !global
+	$wrap-border-radius: map-get($wrap, border-radius) or map-get($default, border-radius) !global
+	$wrap-class: map-get($wrap, class) or map-get($default, class) !global
+	$wrap-color: map-get($wrap, color) or map-get($default, color) !global
+	$wrap-font: map-get($wrap, font) or map-get($default, font) !global
+	$wrap-height: map-get($wrap, height) or map-get($default, height) !global
+	$wrap-margin: map-get($wrap, margin) or map-get($default, margin) or (1em 0) !global
+	$wrap-padding: map-get($wrap, padding) or map-get($default, padding) !global
+	$wrap-shadow: map-get($wrap, shadow) or map-get($default, shadow) !global
+	$wrap-size: map-get($wrap, size) or map-get($default, size) !global
+	$wrap-width: map-get($wrap, width) or map-get($default, width) !global

@@ -1,0 +1,40 @@
+// settings.sass
+
+/* including resources */
+@import resources/normalize.css
+
+*, *:before, *:after
+	box-sizing: border-box
+
+// including libs
+@import lib/functions.sass
+@import lib/unification.sass
+@import lib/mixins.sass
+@import lib/grid.sass
+@import lib/typography.sass
+
+// including components
+@import lib/components/gradient.sass
+@import lib/components/icons.sass
+@import lib/components/arrow.sass
+@import lib/components/list.sass
+@import lib/components/table.sass
+@import lib/components/tabs.sass
+@import lib/components/breadcrumbs.sass
+@import lib/components/tooltip.sass
+@import lib/components/rating.sass
+@import lib/components/switcher.sass
+@import lib/components/radiocheckbox.sass
+@import lib/components/inlineselector.sass
+@import lib/components/field-button.sass
+
+// setting defaults
+$fontsList: (("abrilfatface", "fonts/abrilfatface-regular-webfont"), ("anton", "fonts/anton-webfont"), ("jura", "fonts/jura-demibold-webfont", 600), ("jura", "fonts/jura-light-webfont", 300), ("jura", "fonts/jura-medium-webfont", 500), ("jura", "fonts/jura-regular-webfont"), ("lobster", "fonts/lobster-regular-webfont"), ("marckScript", "fonts/marckscript-regular-webfont"), ("openSans", "fonts/opensans-bolditalic-webfont", 700, italic), ("openSans", "fonts/opensans-bold-webfont", 700), ("openSans", "fonts/opensans-extrabolditalic-webfont", 800, italic), ("openSans", "fonts/opensans-extrabold-webfont", 800), ("openSans", "fonts/opensans-italic-webfont", 400, italic), ("openSans", "fonts/opensans-lightitalic-webfont", 300, italic), ("openSans", "fonts/opensans-light-webfont", 300), ("openSans", "fonts/opensans-regular-webfont"), ("openSans", "fonts/opensans-semibolditalic-webfont", 600, italic), ("openSans", "fonts/opensans-semibold-webfont", 600), ("openSansCondensed", "fonts/opensans-condbold-webfont", 700), ("openSansCondensed", "fonts/opensans-condlightitalic-webfont", 300, italic), ("openSansCondensed", "fonts/opensans-condlight-webfont", 300), ("oswald", "fonts/oswald-bold-webfont", 700), ("oswald", "fonts/oswald-light-webfont", 300), ("oswald", "fonts/oswald-regular-webfont"), ("ptSans", "fonts/pt_sans-web-bolditalic-webfont", 700, italic), ("ptSans", "fonts/pt_sans-web-bold-webfont", 700), ("ptSans", "fonts/pt_sans-web-italic-webfont", 400, italic), ("ptSans", "fonts/pt_sans-web-regular-webfont"), ("sourceCodePro", "fonts/sourcecodepro-bold-webfont", 700), ("sourceCodePro", "fonts/sourcecodepro-regular-webfont"))
+
+/* load fonts */
++loadFonts($fontsList)
+
+/* load icons */
++loadIcons()
+
+/* custom code */
