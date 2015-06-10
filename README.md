@@ -5,50 +5,50 @@ Everything you need before starting using lucifer is how to code in SASS, downlo
 
 For better understanding of the structure of lucifer let’s go step by step through it.
 
-INSTALL 
-* Download the lucifer compressed file and unzipp it in your project.
+INSTALL
+Download the lucifer compressed file and unzipp it in your project.
 
-LOAD PARTS 
-* There is a file named settings.sass for loading components and modules you need and looks like this:
+LOAD PARTS
+There is a file named settings.sass for loading components and modules you need and looks like this:
 
 //////// start of file
-* `// settings.sass
+```// settings.sass
  
 /* including resources */
-* @import resources/normalize.css
+@import resources/normalize.css
  
 *, *:before, *:after
-*     box-sizing: border-box
+	box-sizing: border-box
  
 // including libs
-* @import lib/functions.sass
-* @import lib/unification.sass
-* @import lib/mixins.sass
-* @import lib/grid.sass
-* @import lib/typography.sass
+@import lib/functions.sass
+@import lib/unification.sass
+@import lib/mixins.sass
+@import lib/grid.sass
+@import lib/typography.sass
  
 // including components
-* @import lib/components/gradient.sass
-* @import lib/components/icons.sass
-* @import lib/components/arrow.sass
-* @import lib/components/list.sass
-* @import lib/components/table.sass
-* @import lib/components/tabs.sass
-* @import lib/components/breadcrumbs.sass
-* @import lib/components/tooltip.sass
-* @import lib/components/rating.sass
-* @import lib/components/switcher.sass
-* @import lib/components/radiocheckbox.sass
+@import lib/components/gradient.sass
+@import lib/components/icons.sass
+@import lib/components/arrow.sass
+@import lib/components/list.sass
+@import lib/components/table.sass
+@import lib/components/tabs.sass
+@import lib/components/breadcrumbs.sass
+@import lib/components/tooltip.sass
+@import lib/components/rating.sass
+@import lib/components/switcher.sass
+@import lib/components/radiocheckbox.sass
  
 // setting defaults
-* $fontsList: (("abrilfatface", "fonts/abrlfatface-regular-webfont"), ("anton", "fonts/anton-webfont"))
+$fontsList: (("abrilfatface", "fonts/abrlfatface-regular-webfont"), ("anton", "fonts/anton-webfont"))
  
 /* load fonts */
-* +loadFonts($fontsList)
++loadFonts($fontsList)
  
 // custom code
-* ...`
-* //////// end of file
+...```
+//////// end of file
 
 As you can see, you could import whatever component you want and do not include what you dont want to and what you will not use as well. We highly recommend you to include these files:
 
@@ -58,4 +58,4 @@ As you can see, you could import whatever component you want and do not include 
 
 because there are some components that use functions and mixins from these files to work.
 
-You could find more informations about this library in the location http://lucifer.technology/.
+You could find more informations about this library in the location [http://lucifer.technology/](http://lucifer.technology/ "http://lucifer.technology/").
