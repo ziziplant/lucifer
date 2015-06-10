@@ -1,12 +1,12 @@
 /////////////// COMPONENTS ///////////////
 //////////////// gradient ////////////////
 
-=gradient($colors, $opacitys: null, $type: linear, $repeating: false, $direction: bottom, $shape: null, $center: null, $size: null)
+=gradient($colors, $opacities: null, $type: linear, $repeating: false, $direction: bottom, $shape: null, $center: null, $size: null)
 	$webkit-direction: $direction
 	$standard-direction: $direction
 	
-	@if $opacitys != null
-		$colors: calcOpaqueColors($colors, $opacitys)
+	@if $opacities != null
+		$colors: calcOpaqueColors($colors, $opacities)
 	
 	@if $direction == left
 		$webkit-direction: right
