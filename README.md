@@ -6,7 +6,7 @@ Everything you need before starting using lucifer is how to code in SASS, downlo
 For better understanding of the structure of lucifer let’s go step by step through it.
 
 INSTALL
-Download the lucifer compressed file and unzipp it in your project.
+<br>Download the lucifer compressed file and unzipp it in your project.
 
 LOAD PARTS
 There is a file named settings.sass for loading components and modules you need and looks like this:
