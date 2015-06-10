@@ -11,7 +11,7 @@ Download the lucifer compressed file and unzipp it in your project.
 LOAD PARTS 
 There is a file named settings.sass for loading components and modules you need and looks like this:
 
-# start of file
+//////// start of file
 // settings.sass
  
 /* including resources */
@@ -48,7 +48,7 @@ $fontsList: (("abrilfatface", "fonts/abrlfatface-regular-webfont"), ("anton", "f
  
 // custom code
 ...
-# end of file
+//////// end of file
 
 As you can see, you could import whatever component you want and do not include what you dont want to and what you will not use as well. We highly recommend you to include these files:
 
