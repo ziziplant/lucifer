@@ -105,22 +105,22 @@
 @function calcColor($pcv, $acv, $aop, $pcp, $acp)
 	@return mix($acv, $pcv, ($aop - $pcp) / ($acp - $pcp) * 100)
 
-// calculate the colors and their opacity depending on the list of colors and theirs positions and opacitys and their positions
+// calculate the colors and their opacity depending on the list of colors and theirs positions and opacities and their positions
 // colors - the list of colors and their positions
-// opacitys - the list of opacitys and their positions
+// opacities - the list of opacities and their positions
 // returns list of rgba colors and their positions
-@function calcOpaqueColors($colors, $opacitys) 
+@function calcOpaqueColors($colors, $opacities) 
 	$result_list: ()
 	$cop: 0
 	$cck: 1
   
-	@for $i from 1 through length($opacitys)
+	@for $i from 1 through length($opacities)
 		$break: false
     
 		@for $j from $cck through length($colors)
 			@if $break == false
-				$aov: nth(nth($opacitys, $i), 1)
-				$aop: nth(nth($opacitys, $i), 2)
+				$aov: nth(nth($opacities, $i), 1)
+				$aop: nth(nth($opacities, $i), 2)
 				$acv: nth(nth($colors, $j), 1)
 				$acp: nth(nth($colors, $j), 2)
         
@@ -133,13 +133,13 @@
 						$pop: $aop
             
 						@if $i > 1
-							$pov: nth(nth($opacitys, $i - 1), 1)
-							$pop: nth(nth($opacitys, $i - 1), 2)
+							$pov: nth(nth($opacities, $i - 1), 1)
+							$pop: nth(nth($opacities, $i - 1), 2)
             
 						$calc_o: calcOpacity($aov, $pov, $acp, $pop, $aop)
 						$result_list: append($result_list, (rgba($acv, $calc_o), $acp))
             
-						@if $i == length($opacitys) and $j == length($colors)
+						@if $i == length($opacities) and $j == length($colors)
 							$result_list: append($result_list, (rgba($acv, $aov), $aop))
             
 				@if $aop == $acp
@@ -161,7 +161,7 @@
             
 						$result_list: append($result_list, (rgba($calc_c, $aov), $aop))
             
-						@if $i == length($opacitys) and $j == length($colors)
+						@if $i == length($opacities) and $j == length($colors)
 							$result_list: append($result_list, (rgba($acv, $aov), $acp))
             
 						$cck: $j
