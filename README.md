@@ -11,7 +11,8 @@ INSTALL
 LOAD PARTS
 <br>There is a file named settings.sass for loading components and modules you need and looks like this:
 
-```// settings.sass
+```sass
+// settings.sass
  
 /* including resources */
 <br>@import resources/normalize.css
@@ -46,7 +47,8 @@ LOAD PARTS
 <br>+loadFonts($fontsList)
  
 <br>// custom code
-<br>...```
+<br>...
+```
 
 As you can see, you could import whatever component you want and do not include what you dont want to and what you will not use as well. We highly recommend you to include these files:
 
